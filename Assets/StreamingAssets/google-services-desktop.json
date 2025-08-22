@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "837054713477",
+    "project_id": "ball-merge-6c982",
+    "storage_bucket": "ball-merge-6c982.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837054713477:android:624bcdeae206d1b81363ec",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.Ball-Merge-Game"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO1e1-jEjnQI0999QXQYpzvGYbynov97A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
