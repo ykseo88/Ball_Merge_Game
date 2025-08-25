@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,12 @@ public class InputManager : MonoBehaviour
 
     private InputAction touchDragAction;
     private InputAction touchPressAction;
+    
+    private BallManager ballManager;
 
     public Vector2 _touchPosition;
     private bool _isTouched;
+    private bool isClickCheck = false;
 
     public Vector2 TouchPosition => _touchPosition;
     public bool IsTouched => _isTouched;
@@ -36,6 +40,13 @@ public class InputManager : MonoBehaviour
             Debug.LogError("One or more actions (Drag, Press) not found in TouchMap.");
             return;
         }
+
+        
+    }
+
+    private void Start()
+    {
+        GamaManager.instance.inputManager = this;
     }
 
     private void OnEnable()
@@ -66,21 +77,33 @@ public class InputManager : MonoBehaviour
     {
         // 매 프레임 Drag 액션의 현재 값을 읽어와 터치 위치를 업데이트합니다.
         Vector2 temp = touchDragAction.ReadValue<Vector2>();
-        
-        convertPosition = Camera.main.ScreenToWorldPoint(new Vector3(temp.x, temp.y, Camera.main.transform.position.z));
-        
+        _touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(temp.x, temp.y, 10));
+        Click();
 
     }
 
     private void OnTouchStarted(InputAction.CallbackContext context)
     {
         _isTouched = true;
+        isClickCheck = true;
         Debug.Log("Touch Started at: " + context.ReadValue<float>());
     }
 
     private void OnTouchCanceled(InputAction.CallbackContext context)
     {
         _isTouched = false;
+        if(ballManager == null) ballManager = GamaManager.instance.ballManager;
+        ballManager.DropBall();
+        
         Debug.Log("Touch Canceled.");
+    }
+
+    private void Click()
+    {
+        if (isClickCheck)
+        {
+            isClickCheck = false;
+            
+        }
     }
 }

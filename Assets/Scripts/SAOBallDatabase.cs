@@ -6,4 +6,14 @@ using UnityEngine;
 public class SAOBallDatabase : ScriptableObject
 {
     public BallData[] ballDatas;
+
+    public BallData GetBallDataByLevel(int level)
+    {
+        foreach (BallData ballData in ballDatas)
+        {
+            if(ballData.level == level) return ballData;
+        }
+
+        return null;
+    }
 }
