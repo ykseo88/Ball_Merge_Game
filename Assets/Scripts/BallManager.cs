@@ -69,7 +69,7 @@ public class BallManager : MonoBehaviour
     {
         
         lineRenderer.enabled = true;
-        GameObject temp = Instantiate(ballPrefab, transform.position, Quaternion.identity);
+        GameObject temp = PoolManager.instance.GameObjectPoolActive(ballPrefab, transform.position, Quaternion.identity);
         
         temp.transform.SetParent(transform);
         temp.transform.TryGetComponent(out currentBall);

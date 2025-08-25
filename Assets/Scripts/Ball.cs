@@ -7,6 +7,7 @@ public class Ball : MonoBehaviour
 {
     public BallData ballData = new BallData();
     public BallManager ballManager;
+    public float defaultSize = 0.1f;
     private bool isFirstRand = false;
     
     
@@ -24,7 +25,8 @@ public class Ball : MonoBehaviour
 
     private void SetDataByBallData()
     {
-        transform.localScale *= ballData.Size;
+        float size = ballData.Size * defaultSize;
+        transform.localScale = new Vector3(size, size, size);
         transform.TryGetComponent(out SpriteRenderer spriteRenderer);
         spriteRenderer.sprite = ballData.image;
     }
@@ -38,6 +40,14 @@ public class Ball : MonoBehaviour
                 ballManager.isCurrentBallRand = true;
                 isFirstRand = true;
                 gameObject.layer = LayerMask.NameToLayer("Ball");
+            }
+        }
+        
+        if (other.transform.TryGetComponent(out Ball mergeBall))
+        {
+            if (mergeBall.ballData != null && mergeBall.ballData.mergeable && mergeBall.ballData.level == ballData.level)
+            {
+                
             }
         }
     }
