@@ -136,7 +136,7 @@ public class BallManager : MonoBehaviour
             col.isTrigger = false;
             newBall.ballData = GameManager.instance.ballDatabase.GetBallDataByLevel(level + 1);
             newBall.SetDataByBallData();
-            Debug.Log($"음... 일단 합쳐진 볼은 {GameManager.instance.ballDatabase.GetBallDataByLevel(level).name}이구요, 나올 볼은 {GameManager.instance.ballDatabase.GetBallDataByLevel(level + 1).name}인데 이상하네염;;;;;;;;;;;;");
+            GameManager.instance.scoreManager.currentScore += newBall.ballData.score;
         }
     }
 }

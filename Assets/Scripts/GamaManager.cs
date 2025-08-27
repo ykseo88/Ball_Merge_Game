@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public InputManager inputManager;
     public BallManager ballManager;
     public SAOBallDatabase ballDatabase;
+    public ScoreManager scoreManager;
 
     public bool isGameOver = false;
 

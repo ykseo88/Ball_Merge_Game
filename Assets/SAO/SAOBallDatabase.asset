@@ -18,53 +18,64 @@ MonoBehaviour:
     image: {fileID: -414067627, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 1
+    score: 1
   - name: Golf
     level: 2
     image: {fileID: -1892065412, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 1.26
+    score: 3
   - name: Tennis
     level: 3
     image: {fileID: 252710461, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 1.59
+    score: 6
   - name: Billiards
     level: 4
     image: {fileID: -1539491939, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 2
+    score: 10
   - name: Baseball
     level: 5
     image: {fileID: 1158594821, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 2.52
+    score: 15
   - name: HandBall
     level: 6
     image: {fileID: 343761767, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 3.18
+    score: 21
   - name: DodgeBall
     level: 7
     image: {fileID: 450547169, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 4
+    score: 28
   - name: VollyBall
     level: 8
     image: {fileID: 1406743884, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 5.04
+    score: 36
   - name: Soccer
     level: 9
     image: {fileID: -961705755, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 6.35
+    score: 45
   - name: Basketball
     level: 10
     image: {fileID: 1668286190, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 8
+    score: 55
   - name: Bowling
     level: 11
     image: {fileID: -130989980, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 10.08
+    score: 66
