@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GamaManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static GamaManager instance;
+    public static GameManager instance;
     
     public InputManager inputManager;
     public BallManager ballManager;

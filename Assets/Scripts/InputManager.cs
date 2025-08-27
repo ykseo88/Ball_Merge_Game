@@ -46,7 +46,7 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-        GamaManager.instance.inputManager = this;
+        GameManager.instance.inputManager = this;
     }
 
     private void OnEnable()
@@ -92,7 +92,7 @@ public class InputManager : MonoBehaviour
     private void OnTouchCanceled(InputAction.CallbackContext context)
     {
         _isTouched = false;
-        if(ballManager == null) ballManager = GamaManager.instance.ballManager;
+        if(ballManager == null) ballManager = GameManager.instance.ballManager;
         ballManager.DropBall();
         
         Debug.Log("Touch Canceled.");

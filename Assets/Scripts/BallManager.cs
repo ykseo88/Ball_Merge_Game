@@ -14,6 +14,8 @@ public class BallManager : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector2 randViewPoint = Vector2.zero;
     private int nonDetectlayerMask;
+    
+    public Dictionary<int, int> mergeDic = new Dictionary<int, int>(); 
 
     private void Awake()
     {
@@ -22,19 +24,27 @@ public class BallManager : MonoBehaviour
 
     private void Start()
     {
-        GamaManager.instance.ballManager = this;
+        GameManager.instance.ballManager = this;
         nonDetectlayerMask = LayerMask.GetMask("NonDetect");
-        inputManager = GamaManager.instance.inputManager;
+        inputManager = GameManager.instance.inputManager;
         SetLineRender();
         SpawnBall();
-        
+        SetMergeDic();
+
     }
 
     private void Update()
     {
         UpdatePosition();
-        CheckCurrentBallRand();
         UpdateLine();
+    }
+
+    private void SetMergeDic()
+    {
+        for (int i = 0; i < GameManager.instance.ballDatabase.ballDatas.Length; i++)
+        {
+            mergeDic.Add(i+1, 0);
+        }
     }
 
     private void SetLineRender()
@@ -61,51 +71,59 @@ public class BallManager : MonoBehaviour
 
     private void UpdatePosition()
     {
-        if(inputManager == null) inputManager = GamaManager.instance.inputManager;
+        if(inputManager == null) inputManager = GameManager.instance.inputManager;
         transform.position = new Vector3(inputManager._touchPosition.x, transform.position.y, 0);
     }
 
     public void SpawnBall()
     {
-        
         lineRenderer.enabled = true;
-        GameObject temp = PoolManager.instance.GameObjectPoolActive(ballPrefab, transform.position, Quaternion.identity);
+        GameObject temp = Instantiate(ballPrefab, transform.position, Quaternion.identity);
         
         temp.transform.SetParent(transform);
         temp.transform.TryGetComponent(out currentBall);
+        currentBall.transform.TryGetComponent(out Rigidbody2D rb);
+        currentBall.transform.TryGetComponent(out CircleCollider2D col);
+        rb.bodyType = RigidbodyType2D.Kinematic;
+        col.isTrigger = true;
+        currentBall.ResetBall();
         SetRandomBall(currentBall);
+        currentBall.SetDataByBallData();
         currentBall.ballManager = this;
     }
 
     public void DropBall()
     {
         lineRenderer.enabled = false;
-        currentBall.transform.TryGetComponent(out CircleCollider2D collider);
-        currentBall.transform.TryGetComponent(out Rigidbody2D rigidbody);
-        rigidbody.bodyType = RigidbodyType2D.Dynamic;
-        collider.isTrigger = false;
-        currentBall.transform.SetParent(null);
-    }
-
-    private void CheckCurrentBallRand()
-    {
-        if (isCurrentBallRand)
-        {
-            SpawnBall();
-            isCurrentBallRand = false;
-        }
+        currentBall.Drop();
     }
 
     private void SetRandomBall(Ball ball)
     {
         int randInt = Random.Range(1, maxBallIndex + 1);
         
-        BallData tempBallData = GamaManager.instance.ballDatabase.GetBallDataByLevel(randInt);
+        BallData tempBallData = GameManager.instance.ballDatabase.GetBallDataByLevel(randInt);
         
-        ball.ballData.name = tempBallData.name;
-        ball.ballData.level = tempBallData.level;
-        ball.ballData.mergeable = tempBallData.mergeable;
-        ball.ballData.image = tempBallData.image;
-        ball.ballData.Size = tempBallData.Size;
+        ball.ballData = tempBallData;
+    }
+
+    public void MergeBall(int level, Vector3 hitPosion)
+    {
+        mergeDic[level] += 1;
+        if (mergeDic[level] >= 2)
+        {
+            mergeDic[level] = 0;
+            GameObject temp = Instantiate(ballPrefab, hitPosion, Quaternion.identity);
+            temp.transform.TryGetComponent(out Ball newBall);
+            newBall.gameObject.layer = LayerMask.NameToLayer("Ball");
+            newBall.ballManager = this;
+            newBall.transform.TryGetComponent(out Rigidbody2D rb);
+            newBall.transform.TryGetComponent(out CircleCollider2D col);
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            col.isTrigger = false;
+            newBall.ballData = GameManager.instance.ballDatabase.GetBallDataByLevel(level + 1);
+            newBall.SetDataByBallData();
+            Debug.Log($"음... 일단 합쳐진 볼은 {GameManager.instance.ballDatabase.GetBallDataByLevel(level).name}이구요, 나올 볼은 {GameManager.instance.ballDatabase.GetBallDataByLevel(level + 1).name}인데 이상하네염;;;;;;;;;;;;");
+        }
     }
 }

@@ -8,27 +8,42 @@ public class Ball : MonoBehaviour
     public BallData ballData = new BallData();
     public BallManager ballManager;
     public float defaultSize = 0.1f;
-    private bool isFirstRand = false;
+    public bool isFirstRand = false;
+    private Rigidbody2D rb;
+    private CircleCollider2D coll;
     
     
     // Start is called before the first frame update
     void Start()
     {
         SetDataByBallData();
+        transform.TryGetComponent(out rb);
+        transform.TryGetComponent(out coll);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
-    private void SetDataByBallData()
+    public void SetDataByBallData()
     {
         float size = ballData.Size * defaultSize;
         transform.localScale = new Vector3(size, size, size);
         transform.TryGetComponent(out SpriteRenderer spriteRenderer);
         spriteRenderer.sprite = ballData.image;
+    }
+
+    public void ResetBall()
+    {
+        isFirstRand = false;
+    }
+
+    public void Drop()
+    {
+        rb.bodyType = RigidbodyType2D.Dynamic;
+        coll.isTrigger = false;
+        transform.SetParent(null);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -37,7 +52,7 @@ public class Ball : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Ball") || other.gameObject.CompareTag("Box"))
             {
-                ballManager.isCurrentBallRand = true;
+                ballManager.SpawnBall();
                 isFirstRand = true;
                 gameObject.layer = LayerMask.NameToLayer("Ball");
             }
@@ -47,7 +62,8 @@ public class Ball : MonoBehaviour
         {
             if (mergeBall.ballData != null && mergeBall.ballData.mergeable && mergeBall.ballData.level == ballData.level)
             {
-                
+                ballManager.MergeBall(ballData.level, other.contacts[0].point);
+                gameObject.SetActive(false);
             }
         }
     }
