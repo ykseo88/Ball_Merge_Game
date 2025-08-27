@@ -7,10 +7,12 @@ public class Ball : MonoBehaviour
 {
     public BallData ballData = new BallData();
     public BallManager ballManager;
-    public float defaultSize = 0.1f;
+    public float defaultSize;
     public bool isFirstRand = false;
     private Rigidbody2D rb;
     private CircleCollider2D coll;
+    
+    
     
     
     // Start is called before the first frame update
@@ -57,14 +59,22 @@ public class Ball : MonoBehaviour
                 gameObject.layer = LayerMask.NameToLayer("Ball");
             }
         }
+
+        if (other.gameObject.CompareTag("GameOver"))
+        {
+            GameManager.instance.isGameOver = true;
+            coll.enabled = false;
+        }
         
         if (other.transform.TryGetComponent(out Ball mergeBall))
         {
             if (mergeBall.ballData != null && mergeBall.ballData.mergeable && mergeBall.ballData.level == ballData.level)
             {
                 ballManager.MergeBall(ballData.level, other.contacts[0].point);
-                gameObject.SetActive(false);
+                ballManager.ballList.Remove(this);
+                Destroy(gameObject);
             }
         }
     }
+    
 }

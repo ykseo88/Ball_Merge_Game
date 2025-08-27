@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class BallManager : MonoBehaviour
@@ -14,8 +15,13 @@ public class BallManager : MonoBehaviour
     private LineRenderer lineRenderer;
     private Vector2 randViewPoint = Vector2.zero;
     private int nonDetectlayerMask;
+    [SerializeField] private Transform leftLimit;
+    [SerializeField] private Transform rightLimit;
+    [SerializeField] private Image nextBall;
+    private int nextBallIndex = -10;
     
     public Dictionary<int, int> mergeDic = new Dictionary<int, int>(); 
+    public List<Ball> ballList = new List<Ball>();
 
     private void Awake()
     {
@@ -72,7 +78,12 @@ public class BallManager : MonoBehaviour
     private void UpdatePosition()
     {
         if(inputManager == null) inputManager = GameManager.instance.inputManager;
-        transform.position = new Vector3(inputManager._touchPosition.x, transform.position.y, 0);
+        if (inputManager._touchPosition.x >= leftLimit.position.x &&
+            inputManager._touchPosition.x <= rightLimit.position.x)
+        {
+            transform.position = new Vector3(inputManager._touchPosition.x, transform.position.y, 0);
+        }
+        
     }
 
     public void SpawnBall()
@@ -90,20 +101,22 @@ public class BallManager : MonoBehaviour
         SetRandomBall(currentBall);
         currentBall.SetDataByBallData();
         currentBall.ballManager = this;
+        
     }
 
     public void DropBall()
     {
         lineRenderer.enabled = false;
+        ballList.Add(currentBall);
         currentBall.Drop();
     }
 
     private void SetRandomBall(Ball ball)
     {
-        int randInt = Random.Range(1, maxBallIndex + 1);
-        
-        BallData tempBallData = GameManager.instance.ballDatabase.GetBallDataByLevel(randInt);
-        
+        if (nextBallIndex < 0) nextBallIndex = Random.Range(1, maxBallIndex + 1);
+        BallData tempBallData = GameManager.instance.ballDatabase.GetBallDataByLevel(nextBallIndex);
+        nextBallIndex = Random.Range(1, maxBallIndex + 1);
+        nextBall.sprite = GameManager.instance.ballDatabase.GetBallDataByLevel(nextBallIndex).image;
         ball.ballData = tempBallData;
     }
 

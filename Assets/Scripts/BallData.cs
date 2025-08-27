@@ -11,4 +11,5 @@ public class BallData
     public Sprite image;
     public bool mergeable;
     public float Size;
+    public int score;
 }

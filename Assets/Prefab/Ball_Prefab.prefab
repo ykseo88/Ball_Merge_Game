@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6190782486849568202}
   - component: {fileID: 7807035967270825069}
   - component: {fileID: 1459733475763832234}
-  - component: {fileID: -293583867601386801}
+  - component: {fileID: 5425636388092519215}
+  - component: {fileID: 3833316091258684892}
   m_Layer: 3
   m_Name: Ball_Prefab
   m_TagString: Ball
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 500210254, guid: 22415d4ad119f9e4cafe962081fbd3e3, type: 3}
+  m_Sprite: {fileID: 1158594821, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,10 +104,10 @@ MonoBehaviour:
     name: 
     level: 0
     image: {fileID: 0}
-    mergeable: 0
-    Size: 0
+    mergeable: 1
+    Size: 0.1
   ballManager: {fileID: 0}
-  defaultSize: 0.1
+  defaultSize: 0.2
   isFirstRand: 1
 --- !u!50 &1459733475763832234
 Rigidbody2D:
@@ -135,7 +136,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &-293583867601386801
+--- !u!58 &5425636388092519215
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,4 +170,18 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.22
+  m_Radius: 0.955
+--- !u!114 &3833316091258684892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520770891570926065}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7c483aeb4f27d41ae60ce48201a267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeVolume: 0.02
+  isShake: 0
