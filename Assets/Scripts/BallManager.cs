@@ -137,6 +137,7 @@ public class BallManager : MonoBehaviour
             newBall.ballData = GameManager.instance.ballDatabase.GetBallDataByLevel(level + 1);
             newBall.SetDataByBallData();
             GameManager.instance.scoreManager.currentScore += newBall.ballData.score;
+            GameManager.instance.scoreManager.UpdateScore();
         }
     }
 }
