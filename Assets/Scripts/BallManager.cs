@@ -22,6 +22,7 @@ public class BallManager : MonoBehaviour
     
     public Dictionary<int, int> mergeDic = new Dictionary<int, int>(); 
     public List<Ball> ballList = new List<Ball>();
+    [SerializeField] private Transform maxTouchHeight;
 
     private void Awake()
     {
@@ -79,7 +80,8 @@ public class BallManager : MonoBehaviour
     {
         if(inputManager == null) inputManager = GameManager.instance.inputManager;
         if (inputManager._touchPosition.x >= leftLimit.position.x &&
-            inputManager._touchPosition.x <= rightLimit.position.x)
+            inputManager._touchPosition.x <= rightLimit.position.x &&
+            inputManager._touchPosition.y < maxTouchHeight.position.y)
         {
             transform.position = new Vector3(inputManager._touchPosition.x, transform.position.y, 0);
         }
@@ -106,9 +108,12 @@ public class BallManager : MonoBehaviour
 
     public void DropBall()
     {
-        lineRenderer.enabled = false;
-        ballList.Add(currentBall);
-        currentBall.Drop();
+        if (GameManager.instance.inputManager._touchPosition.y < maxTouchHeight.position.y)
+        {
+            lineRenderer.enabled = false;
+            ballList.Add(currentBall);
+            currentBall.Drop();
+        }
     }
 
     private void SetRandomBall(Ball ball)

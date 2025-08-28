@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour
     
     public InputManager inputManager;
     public BallManager ballManager;
-    public SAOBallDatabase ballDatabase;
+    public SAODatabase ballDatabase;
     public ScoreManager scoreManager;
+    public SoundManager soundManager;
 
     public bool isGameOver = false;
 
