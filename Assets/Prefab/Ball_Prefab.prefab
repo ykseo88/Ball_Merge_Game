@@ -106,6 +106,7 @@ MonoBehaviour:
     image: {fileID: 0}
     mergeable: 1
     Size: 0.1
+    score: 0
   ballManager: {fileID: 0}
   defaultSize: 0.2
   isFirstRand: 1

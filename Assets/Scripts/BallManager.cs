@@ -128,6 +128,7 @@ public class BallManager : MonoBehaviour
             mergeDic[level] = 0;
             GameObject temp = Instantiate(ballPrefab, hitPosion, Quaternion.identity);
             temp.transform.TryGetComponent(out Ball newBall);
+            ballList.Add(newBall);
             newBall.gameObject.layer = LayerMask.NameToLayer("Ball");
             newBall.ballManager = this;
             newBall.transform.TryGetComponent(out Rigidbody2D rb);
