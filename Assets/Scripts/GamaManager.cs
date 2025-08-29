@@ -9,11 +9,16 @@ public class GameManager : MonoBehaviour
     
     public InputManager inputManager;
     public BallManager ballManager;
-    public SAODatabase ballDatabase;
+    public SAODatabase database;
     public ScoreManager scoreManager;
     public SoundManager soundManager;
+    public MenuManager menuManager;
+    public SaveManager saveManager;
 
     public bool isGameOver = false;
+
+    public float saveBgmValue;
+    public float saveSfxValue;
 
     private void Awake()
     {
@@ -30,6 +35,8 @@ public class GameManager : MonoBehaviour
         if (isGameOver)
         {
             isGameOver = false;
+            inputManager.enabled = false;
+            menuManager.OnGameOver();
             List<Ball> ballList = ballManager.ballList;
             for (int i = 0; i < ballList.Count; i++)
             {

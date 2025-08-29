@@ -48,7 +48,7 @@ public class BallManager : MonoBehaviour
 
     private void SetMergeDic()
     {
-        for (int i = 0; i < GameManager.instance.ballDatabase.ballDatas.Length; i++)
+        for (int i = 0; i < GameManager.instance.database.ballDatas.Length; i++)
         {
             mergeDic.Add(i+1, 0);
         }
@@ -111,7 +111,6 @@ public class BallManager : MonoBehaviour
         if (GameManager.instance.inputManager._touchPosition.y < maxTouchHeight.position.y)
         {
             lineRenderer.enabled = false;
-            ballList.Add(currentBall);
             currentBall.Drop();
         }
     }
@@ -119,9 +118,9 @@ public class BallManager : MonoBehaviour
     private void SetRandomBall(Ball ball)
     {
         if (nextBallIndex < 0) nextBallIndex = Random.Range(1, maxBallIndex + 1);
-        BallData tempBallData = GameManager.instance.ballDatabase.GetBallDataByLevel(nextBallIndex);
+        BallData tempBallData = GameManager.instance.database.GetBallDataByLevel(nextBallIndex);
         nextBallIndex = Random.Range(1, maxBallIndex + 1);
-        nextBall.sprite = GameManager.instance.ballDatabase.GetBallDataByLevel(nextBallIndex).image;
+        nextBall.sprite = GameManager.instance.database.GetBallDataByLevel(nextBallIndex).image;
         ball.ballData = tempBallData;
     }
 
@@ -130,6 +129,7 @@ public class BallManager : MonoBehaviour
         mergeDic[level] += 1;
         if (mergeDic[level] >= 2)
         {
+            GameManager.instance.soundManager.OnSound(GameManager.instance.database.GetSoundDataByName("Merge").clip);
             mergeDic[level] = 0;
             GameObject temp = Instantiate(ballPrefab, hitPosion, Quaternion.identity);
             temp.transform.TryGetComponent(out Ball newBall);
@@ -140,10 +140,11 @@ public class BallManager : MonoBehaviour
             newBall.transform.TryGetComponent(out CircleCollider2D col);
             rb.bodyType = RigidbodyType2D.Dynamic;
             col.isTrigger = false;
-            newBall.ballData = GameManager.instance.ballDatabase.GetBallDataByLevel(level + 1);
+            newBall.ballData = GameManager.instance.database.GetBallDataByLevel(level + 1);
             newBall.SetDataByBallData();
             GameManager.instance.scoreManager.currentScore += newBall.ballData.score;
-            GameManager.instance.scoreManager.UpdateScore();
+            GameManager.instance.scoreManager.UpdateScore(GameManager.instance.scoreManager.scoreTexts);
+            GameManager.instance.scoreManager.UpdateScore(GameManager.instance.scoreManager.resultScoreTexts);
         }
     }
 }

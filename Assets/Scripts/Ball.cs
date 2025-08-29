@@ -55,6 +55,7 @@ public class Ball : MonoBehaviour
             if (other.gameObject.CompareTag("Ball") || other.gameObject.CompareTag("Box"))
             {
                 ballManager.SpawnBall();
+                ballManager.ballList.Add(this);
                 isFirstRand = true;
                 gameObject.layer = LayerMask.NameToLayer("Ball");
             }
@@ -70,6 +71,7 @@ public class Ball : MonoBehaviour
         {
             if (mergeBall.ballData != null && mergeBall.ballData.mergeable && mergeBall.ballData.level == ballData.level)
             {
+                
                 ballManager.MergeBall(ballData.level, other.contacts[0].point);
                 ballManager.ballList.Remove(this);
                 Destroy(gameObject);
