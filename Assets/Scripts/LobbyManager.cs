@@ -48,11 +48,13 @@ public class LobbyManager : MonoBehaviour
 
     private void Exit()
     {
+        OnClickSound();
         Application.Quit();
     }
 
     private async void GameStart()
     {
+        OnClickSound();
         saveManager.Load();
         saveManager.SaveOption();
         SceneManager.LoadScene(1);
@@ -60,6 +62,7 @@ public class LobbyManager : MonoBehaviour
 
     private void OnRanking()
     {
+        OnClickSound();
         SetRanking();
         RankingPanel.SetActive(true);
     }
@@ -76,6 +79,7 @@ public class LobbyManager : MonoBehaviour
 
     private void OffRanking()
     {
+        OnClickSound();
         RankingPanel.SetActive(false);
     }
     

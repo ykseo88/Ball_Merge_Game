@@ -17,12 +17,13 @@ public class GameManager : MonoBehaviour
 
     public bool isGameOver = false;
 
-    public float saveBgmValue;
-    public float saveSfxValue;
+    public float saveBgmValue = 0.5f;
+    public float saveSfxValue = 0.5f;
 
     private void Awake()
     {
         instance = this;
+        //Application.targetFrameRate = -1;
     }
 
     private void Update()
@@ -37,6 +38,8 @@ public class GameManager : MonoBehaviour
             isGameOver = false;
             inputManager.enabled = false;
             menuManager.OnGameOver();
+            soundManager.BGMSource.clip = database.GetSoundDataByName("GameOverBGM").clip;
+            soundManager.BGMSource.Play();
             List<Ball> ballList = ballManager.ballList;
             for (int i = 0; i < ballList.Count; i++)
             {

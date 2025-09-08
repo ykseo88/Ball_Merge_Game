@@ -18,7 +18,7 @@ MonoBehaviour:
     image: {fileID: -414067627, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
     mergeable: 1
     Size: 1
-    score: 1
+    score: 0
   - name: Golf
     level: 2
     image: {fileID: -1892065412, guid: e4ee2de72e6ebdd4f852276e47ac0fc4, type: 3}
@@ -83,4 +83,10 @@ MonoBehaviour:
   - name: Merge
     clip: {fileID: 8300000, guid: 7d48d6185af9fae4f9884eddc73f7f13, type: 3}
   - name: Click
+    clip: {fileID: 8300000, guid: 4c120985a0718434b9430047a482faef, type: 3}
+  - name: GameOverBGM
+    clip: {fileID: 8300000, guid: 7eaf377ee4337014c91ced6b0d08edf1, type: 3}
+  - name: InGameBGM
+    clip: {fileID: 8300000, guid: 11900b0141630bf4dadb354f767eb7de, type: 3}
+  - name: LobbyBGM
     clip: {fileID: 8300000, guid: 4c120985a0718434b9430047a482faef, type: 3}
